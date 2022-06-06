@@ -1,7 +1,7 @@
 [features]
 seeds = false
 [programs.localnet]
-solana_voting_system = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS"
+solana_voting_system = "9tzc763yy5v74LKwwjRdUwJyB1mQMxcrgVntpehcnm5H"
 
 [registry]
 url = "https://anchor.projectserum.com"
