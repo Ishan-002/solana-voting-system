@@ -10,20 +10,24 @@ pub mod solana_voting_system {
 
     pub fn send_vote(ctx: Context<SendVote>) -> Result<()> {
         let chosen = ctx.accounts.option.option;
-        let mut updatectx: Context<UpdateCount>;
+        let mut updatectx: Context<AccessCount>;
 
         update_count(updatectx, chosen);
 
         Ok(())
     }
 
-    pub fn update_count(ctx: Context<UpdateCount>, option: usize) -> Result<()>{
+    pub fn update_count(ctx: Context<AccessCount>, option: usize) -> Result<()>{
         ctx.accounts.full_count.vote_vec[option] =  ctx.accounts.full_count.vote_vec[option] + 1;
         Ok(()) 
     }
 
     pub fn add_option(ctx: Context<AddOption>, input: &String) -> Result<()>{
+        let mut addctx: Context<AccessCount>;
 
+        addctx.accounts.full_count.option_vec.push(*input);
+        addctx.accounts.full_count.vote_vec.push(0);
+        addctx.accounts.full_count.count = addctx.accounts.full_count.count + 1;
         Ok(())
     }
 }
@@ -44,7 +48,7 @@ pub struct AddOption<'info> {
 }
 
 #[derive(Accounts)]
-pub struct UpdateCount<'info>{
+pub struct AccessCount<'info>{
     pub full_count: Account<'info, AllOptionsVotes>
 
 }
