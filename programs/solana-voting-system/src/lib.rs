@@ -7,8 +7,12 @@ declare_id!("9tzc763yy5v74LKwwjRdUwJyB1mQMxcrgVntpehcnm5H");
 pub mod solana_voting_system {
     use super::*;
 
+
     pub fn send_vote(ctx: Context<SendVote>) -> Result<()> {
-        let chosen = ctx.accounts.option;
+        let chosen = ctx.accounts.option.option;
+        let mut updatectx: Context<UpdateCount>;
+
+        update_count(updatectx, chosen);
 
         Ok(())
     }
